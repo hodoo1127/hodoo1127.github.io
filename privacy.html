@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Privacy / Cookies — e-tools</title>
+<link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+<div class="wrap">
+  <header style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <h1 data-i18n="privacy_h1">개인정보 처리방침 · 쿠키 고지</h1>
+    <div class="top-controls">
+      <select id="lang" class="select" aria-label="Language">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+      <a href="index.html" class="toggle" id="backLink" data-i18n="privacy_back">← 돌아가기</a>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2 data-i18n="privacy_collect_title">수집 항목</h2>
+    <p data-i18n="privacy_collect_body">본 사이트는 계정을 요구하지 않으며, 사용자 입력은 브라우저 로컬 저장소(LocalStorage)에 저장됩니다.</p>
+
+    <h2 data-i18n="privacy_ads_title">광고(AdSense)</h2>
+    <p>
+      <span data-i18n="privacy_ads_body">Google AdSense는 쿠키 및 광고 ID를 활용하여 개인 맞춤 광고를 제공할 수 있습니다. 자세한 내용은 다음 문서를 참조하십시오:</span>
+      <a id="adslink" target="_blank" rel="noopener" data-i18n="privacy_ads_link_text">Google 광고 기술 정책</a>
+    </p>
+
+    <h2 data-i18n="privacy_contact_title">문의</h2>
+    <p><span data-i18n="privacy_contact_prefix">운영자 이메일:</span> <a href="mailto:admin@e-tools.kr">admin@e-tools.kr</a></p>
+  </section>
+
+  <footer style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px">
+    <span>© <span id="year"></span> <span data-i18n="brand">Everyday Tools</span></span>
+    <span class="muted"><a id="backLink2" href="index.html" data-i18n="privacy_back">← 돌아가기</a></span>
+  </footer>
+</div>
+
+<script>
+/* ===== i18n 사전 ===== */
+const I18N = {
+  ko:{privacy_h1:"개인정보 처리방침 · 쿠키 고지", privacy_back:"← 돌아가기",
+      privacy_collect_title:"수집 항목",
+      privacy_collect_body:"본 사이트는 계정을 요구하지 않으며, 사용자 입력은 브라우저 로컬 저장소(LocalStorage)에 저장됩니다.",
+      privacy_ads_title:"광고(AdSense)",
+      privacy_ads_body:"Google AdSense는 쿠키 및 광고 ID를 활용하여 개인 맞춤 광고를 제공할 수 있습니다. 자세한 내용은 다음 문서를 참조하십시오:",
+      privacy_ads_link_text:"Google 광고 기술 정책",
+      privacy_contact_title:"문의", privacy_contact_prefix:"운영자 이메일:",
+      brand:"Everyday Tools"},
+  en:{privacy_h1:"Privacy Policy · Cookies Notice", privacy_back:"← Back",
+      privacy_collect_title:"Data We Collect",
+      privacy_collect_body:"This site requires no account. What you type stays in your browser’s LocalStorage.",
+      privacy_ads_title:"Advertising (AdSense)",
+      privacy_ads_body:"Google AdSense may use cookies and advertising IDs to serve personalized ads. See:",
+      privacy_ads_link_text:"Google Ads & cookies policy",
+      privacy_contact_title:"Contact", privacy_contact_prefix:"Operator email:",
+      brand:"Everyday Tools"},
+  es:{privacy_h1:"Política de privacidad · Aviso de cookies", privacy_back:"← Volver",
+      privacy_collect_title:"Datos que recopilamos",
+      privacy_collect_body:"Este sitio no requiere cuenta. Lo que escribe se guarda en el LocalStorage de su navegador.",
+      privacy_ads_title:"Publicidad (AdSense)",
+      privacy_ads_body:"Google AdSense puede usar cookies e identificadores publicitarios para mostrar anuncios personalizados. Consulte:",
+      privacy_ads_link_text:"Política de anuncios y cookies de Google",
+      privacy_contact_title:"Contacto", privacy_contact_prefix:"Correo del responsable:",
+      brand:"Herramientas Diarias"}
+};
+const SUPPORTED = ["ko","en","es"];
+const pickLang = x => SUPPORTED.includes(x) ? x : "en";
+
+/* ===== 언어 결정/적용 ===== */
+function getLang(){
+  const qp = new URL(location.href).searchParams.get("lang");
+  if(qp) return pickLang(qp.toLowerCase());
+  const ls = localStorage.getItem("langForce");
+  if(ls) return pickLang(ls);
+  const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+  return pickLang(nav.slice(0,2).toLowerCase());
+}
+function applyI18n(lang){
+  const d = I18N[lang] || I18N.en;
+  document.documentElement.setAttribute("lang", lang);
+  document.querySelectorAll("[data-i18n]").forEach(n=>{
+    const k = n.getAttribute("data-i18n");
+    if(d[k]) n.textContent = d[k];
+  });
+}
+function syncLinks(lang){
+  // index 돌아가기 링크는 현재 언어 유지
+  const back1 = document.getElementById("backLink");
+  const back2 = document.getElementById("backLink2");
+  const toIndex = new URL("index.html", location.href);
+  toIndex.searchParams.set("lang", lang);
+  if(back1) back1.href = toIndex.toString();
+  if(back2) back2.href = toIndex.toString();
+
+  // Google 정책 링크도 언어화
+  const ads = document.getElementById("adslink");
+  const map = { ko:"ko", en:"en", es:"es" };
+  ads.href = "https://policies.google.com/technologies/ads?hl=" + (map[lang] || "en");
+}
+function setLang(lang){
+  const v = pickLang(String(lang||"").toLowerCase());
+  localStorage.setItem("langForce", v);
+  applyI18n(v);
+  syncLinks(v);
+}
+
+/* ===== 부트스트랩 ===== */
+document.getElementById("year").textContent = new Date().getFullYear();
+const sel = document.getElementById("lang");
+const start = getLang();
+sel.value = start;
+applyI18n(start);
+syncLinks(start);
+sel.addEventListener("change", ()=> setLang(sel.value));
+</script>
+</body>
+</html>

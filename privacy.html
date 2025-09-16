@@ -4,9 +4,19 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Privacy / Cookies — e-tools</title>
-<link rel="stylesheet" href="assets/styles.css"/>
+
+<!-- SEO: canonical & hreflang -->
+<link rel="canonical" href="https://e-tools.kr/privacy.html"/>
+<link rel="alternate" hreflang="ko" href="https://e-tools.kr/privacy.html">
+<link rel="alternate" hreflang="en" href="https://e-tools.kr/en/privacy.html">
+<link rel="alternate" hreflang="es" href="https://e-tools.kr/es/privacy.html">
+<link rel="alternate" hreflang="x-default" href="https://e-tools.kr/privacy.html">
+
+<link rel="stylesheet" href="/assets/styles.css"/>
 </head>
 <body>
+<script>try{localStorage.setItem('langForce','ko');}catch(e){}</script>
+
 <div class="wrap">
   <header style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px">
     <h1 data-i18n="privacy_h1">개인정보 처리방침 · 쿠키 고지</h1>
@@ -16,7 +26,7 @@
         <option value="en">English</option>
         <option value="es">Español</option>
       </select>
-      <a href="index.html" class="toggle" id="backLink" data-i18n="privacy_back">← 돌아가기</a>
+      <a href="/" class="toggle" id="backLink" data-i18n="privacy_back">← 돌아가기</a>
     </div>
   </header>
 
@@ -36,7 +46,7 @@
 
   <footer style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px">
     <span>© <span id="year"></span> <span data-i18n="brand">Everyday Tools</span></span>
-    <span class="muted"><a id="backLink2" href="index.html" data-i18n="privacy_back">← 돌아가기</a></span>
+    <span class="muted"><a id="backLink2" href="/" data-i18n="privacy_back">← 돌아가기</a></span>
   </footer>
 </div>
 
@@ -68,18 +78,17 @@ const I18N = {
       privacy_contact_title:"Contacto", privacy_contact_prefix:"Correo del responsable:",
       brand:"Herramientas Diarias"}
 };
+
 const SUPPORTED = ["ko","en","es"];
 const pickLang = x => SUPPORTED.includes(x) ? x : "en";
 
-/* ===== 언어 결정/적용 ===== */
-function getLang(){
-  const qp = new URL(location.href).searchParams.get("lang");
-  if(qp) return pickLang(qp.toLowerCase());
-  const ls = localStorage.getItem("langForce");
-  if(ls) return pickLang(ls);
-  const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
-  return pickLang(nav.slice(0,2).toLowerCase());
+/* ===== 경로 기반 언어 처리 & 링크 동기화 ===== */
+function currentLangFromPath(){
+  if(/^\/en(\/|$)/.test(location.pathname)) return "en";
+  if(/^\/es(\/|$)/.test(location.pathname)) return "es";
+  return "ko";
 }
+
 function applyI18n(lang){
   const d = I18N[lang] || I18N.en;
   document.documentElement.setAttribute("lang", lang);
@@ -88,34 +97,41 @@ function applyI18n(lang){
     if(d[k]) n.textContent = d[k];
   });
 }
+
 function syncLinks(lang){
-  // index 돌아가기 링크는 현재 언어 유지
+  // 홈(돌아가기) 링크
   const back1 = document.getElementById("backLink");
   const back2 = document.getElementById("backLink2");
-  const toIndex = new URL("index.html", location.href);
-  toIndex.searchParams.set("lang", lang);
-  if(back1) back1.href = toIndex.toString();
-  if(back2) back2.href = toIndex.toString();
+  const homeHref = lang==="en" ? "/en/" : lang==="es" ? "/es/" : "/";
+  if(back1) back1.href = homeHref;
+  if(back2) back2.href = homeHref;
 
-  // Google 정책 링크도 언어화
+  // Google 정책 링크(언어별 hl)
   const ads = document.getElementById("adslink");
   const map = { ko:"ko", en:"en", es:"es" };
-  ads.href = "https://policies.google.com/technologies/ads?hl=" + (map[lang] || "en");
+  if(ads) ads.href = "https://policies.google.com/technologies/ads?hl=" + (map[lang] || "en");
 }
+
 function setLang(lang){
   const v = pickLang(String(lang||"").toLowerCase());
-  localStorage.setItem("langForce", v);
-  applyI18n(v);
-  syncLinks(v);
+  try{ localStorage.setItem("langForce", v); }catch(e){}
+  // 언어별 privacy 경로로 이동
+  if(v==="ko") location.href = "/privacy.html";
+  if(v==="en") location.href = "/en/privacy.html";
+  if(v==="es") location.href = "/es/privacy.html";
 }
 
 /* ===== 부트스트랩 ===== */
 document.getElementById("year").textContent = new Date().getFullYear();
+
 const sel = document.getElementById("lang");
-const start = getLang();
-sel.value = start;
-applyI18n(start);
-syncLinks(start);
+// 현재 페이지가 루트 ko이므로 기본값 ko
+const cur = currentLangFromPath(); // 안전상 호출(재사용 가능)
+sel.value = cur; // 여기서는 'ko'
+
+applyI18n("ko");   // 루트는 한국어 고정 렌더
+syncLinks("ko");
+
 sel.addEventListener("change", ()=> setLang(sel.value));
 </script>
 </body>

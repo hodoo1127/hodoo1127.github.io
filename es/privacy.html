@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Privacidad / Cookies — e-tools</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Política de privacidad y aviso de cookies: datos que recopilamos, cookies de AdSense y contacto.">
+  <link rel="canonical" href="https://e-tools.kr/es/privacy.html"/>
+
+  <!-- hreflang: páginas equivalentes -->
+  <link rel="alternate" hreflang="ko" href="https://e-tools.kr/privacy.html">
+  <link rel="alternate" hreflang="en" href="https://e-tools.kr/en/privacy.html">
+  <link rel="alternate" hreflang="es" href="https://e-tools.kr/es/privacy.html">
+  <link rel="alternate" hreflang="x-default" href="https://e-tools.kr/privacy.html">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Privacidad / Cookies — e-tools">
+  <meta property="og:description" content="Uso de privacidad y cookies">
+  <meta property="og:url" content="https://e-tools.kr/es/privacy.html">
+  <meta property="og:site_name" content="Everyday Tools">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary">
+
+  <meta name="theme-color" content="#0b0f14"/>
+  <link rel="stylesheet" href="/assets/styles.css"/>
+</head>
+<body>
+<script>try{localStorage.setItem('langForce','es');}catch(e){}</script>
+
+<div class="wrap">
+  <header style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <h1>Política de privacidad · Aviso de cookies</h1>
+    <div class="top-controls">
+      <select id="langSel" class="select" aria-label="Language">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="es" selected>Español</option>
+      </select>
+      <a href="/es/" class="toggle">← Volver</a>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2>Datos que recopilamos</h2>
+    <p>Este sitio no requiere cuenta. Lo que escribe se guarda en el LocalStorage de su navegador.</p>
+
+    <h2>Publicidad (AdSense)</h2>
+    <p>
+      Google AdSense puede usar cookies e identificadores publicitarios para mostrar anuncios personalizados.
+      Consulte: <a href="https://policies.google.com/technologies/ads?hl=es" target="_blank" rel="noopener noreferrer">Política de anuncios y cookies de Google</a>
+    </p>
+
+    <h2>Contacto</h2>
+    <p>Correo del responsable: <a href="mailto:admin@e-tools.kr">admin@e-tools.kr</a></p>
+  </section>
+
+  <footer style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px">
+    <span>© <span id="year"></span> <span>Everyday Tools</span></span>
+    <span class="muted"><a href="/es/">← Volver</a></span>
+  </footer>
+</div>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  (function(){
+    var sel = document.getElementById('langSel');
+    if(!sel) return;
+    // /en/privacy.html, /es/privacy.html → /privacy.html 로 매핑
+    var base = location.pathname.replace(/^\/(en|es)(\/|$)/,'/'); // 결과: /privacy.html
+
+    sel.value = /\/en\//.test(location.pathname) ? 'en' :
+                /\/es\//.test(location.pathname) ? 'es' : 'ko';
+
+    sel.addEventListener('change', function(){
+      if (sel.value === 'ko') location.href = base;          // /privacy.html
+      if (sel.value === 'en') location.href = '/en' + base;  // /en/privacy.html
+      if (sel.value === 'es') location.href = '/es' + base;  // /es/privacy.html
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Herramientas Diarias — e-tools</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Cronómetro, temporizador, generador de contraseñas y utilidades de texto. Sin cuenta; tus datos quedan en el navegador (LocalStorage).">
+  <link rel="canonical" href="https://e-tools.kr/es/"/>
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="ko" href="https://e-tools.kr/">
+  <link rel="alternate" hreflang="en" href="https://e-tools.kr/en/">
+  <link rel="alternate" hreflang="es" href="https://e-tools.kr/es/">
+  <link rel="alternate" hreflang="x-default" href="https://e-tools.kr/">
+
+  <!-- OG/Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Herramientas Diarias — e-tools">
+  <meta property="og:description" content="Cronómetro, temporizador y utilidades de texto">
+  <meta property="og:url" content="https://e-tools.kr/es/">
+  <meta property="og:site_name" content="Everyday Tools">
+  <meta property="og:locale" content="es_ES">
+  <!-- opcional: vista previa -->
+  <meta property="og:image" content="https://e-tools.kr/assets/og.png">
+  <meta name="twitter:card" content="summary">
+
+  <meta name="theme-color" content="#0b0f14"/>
+  <link rel="stylesheet" href="/assets/styles.css"/>
+
+  <!-- AdSense global (activar tras aprobación)
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+</head>
+<body>
+<script>try{localStorage.setItem('langForce','es');}catch(e){}</script>
+
+<div class="wrap" id="root">
+  <header>
+    <h1 data-i18n="title">Herramientas Diarias</h1>
+    <div class="top-controls">
+      <select id="langSel" class="select" aria-label="Idioma">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="es" selected>Español</option>
+      </select>
+      <button id="themeToggle" class="toggle" data-i18n="theme_dark">Tema oscuro</button>
+    </div>
+  </header>
+
+  <nav role="tablist" aria-label="Herramientas">
+    <button class="tabbtn active" role="tab" id="tabbtn-stopwatch" aria-controls="tab-stopwatch" aria-selected="true" data-tab="stopwatch" tabindex="0" data-i18n="tab_stopwatch">Cronómetro</button>
+    <button class="tabbtn" role="tab" id="tabbtn-countdown" aria-controls="tab-countdown" aria-selected="false" data-tab="countdown" tabindex="-1" data-i18n="tab_countdown">Temporizador</button>
+    <button class="tabbtn" role="tab" id="tabbtn-pwgen" aria-controls="tab-pwgen" aria-selected="false" data-tab="pwgen" tabindex="-1" data-i18n="tab_pw">Generador de contraseñas</button>
+    <button class="tabbtn" role="tab" id="tabbtn-text" aria-controls="tab-text" aria-selected="false" data-tab="text" tabindex="-1" data-i18n="tab_text">Texto/Mayús-Minús</button>
+    <button class="tabbtn" role="tab" id="tabbtn-url" aria-controls="tab-url" aria-selected="false" data-tab="url" tabindex="-1" data-i18n="tab_url">Cod/Decod URL</button>
+    <button class="tabbtn" role="tab" id="tabbtn-memo" aria-controls="tab-memo" aria-selected="false" data-tab="memo" tabindex="-1" data-i18n="tab_memo">Bloc de notas</button>
+    <a class="tabbtn" href="/es/privacy.html" data-i18n="tab_privacy">Privacidad/Cookies</a>
+  </nav>
+
+  <div class="ad" id="ad-top"><span class="muted" data-i18n="ad_top">Espacio publicitario (728x90, adaptable)</span></div>
+
+  <div class="grid">
+    <!-- Cronómetro -->
+    <section class="card" id="tab-stopwatch" role="tabpanel" aria-labelledby="tabbtn-stopwatch" aria-hidden="false">
+      <h2 class="title" data-i18n="stopwatch">Cronómetro</h2>
+      <div class="timer" id="sw-display" role="timer" aria-live="off">00:00.00</div>
+      <div class="row">
+        <button class="btn primary" id="sw-toggle" aria-pressed="false" data-i18n="start">Iniciar</button>
+        <button class="btn" id="sw-lap" data-i18n="lap">Vuelta</button>
+        <button class="btn" id="sw-reset" data-i18n="reset">Reiniciar</button>
+      </div>
+      <ul id="sw-laps" class="muted" style="margin-top:10px; padding-left:18px;"></ul>
+    </section>
+
+    <!-- Temporizador -->
+    <section class="card hidden" id="tab-countdown" role="tabpanel" aria-labelledby="tabbtn-countdown" aria-hidden="true">
+      <h2 class="title" data-i18n="countdown">Temporizador de cuenta atrás</h2>
+      <div class="row">
+        <input type="number" id="cd-min" min="0" placeholder="minutos" data-i18n-ph="minutes_ph" inputmode="numeric" pattern="\d*"/>
+        <input type="number" id="cd-sec" min="0" max="59" placeholder="segundos" data-i18n-ph="seconds_ph" inputmode="numeric" pattern="\d*"/>
+        <label class="row" style="gap:6px"><input type="checkbox" id="cd-beep" checked/> <span data-i18n="beep_on_end">Pitido al finalizar</span></label>
+      </div>
+      <div class="row" id="cd-steppers" style="gap:12px; flex-wrap:wrap; margin-top:8px">
+        <div class="row" role="group" aria-label="Minutos" style="gap:6px">
+          <button class="btn step" data-delta="-600" data-i18n="minus10m">−10 min</button>
+          <button class="btn step" data-delta="-60"  data-i18n="minus1m">−1 min</button>
+          <button class="btn step" data-delta="60"   data-i18n="plus1m">+1 min</button>
+          <button class="btn step" data-delta="600"  data-i18n="plus10m">+10 min</button>
+        </div>
+        <div class="row" role="group" aria-label="Segundos" style="gap:6px">
+          <button class="btn step" data-delta="-10"  data-i18n="minus10s">−10 s</button>
+          <button class="btn step" data-delta="-1"   data-i18n="minus1s">−1 s</button>
+          <button class="btn step" data-delta="1"    data-i18n="plus1s">+1 s</button>
+          <button class="btn step" data-delta="10"   data-i18n="plus10s">+10 s</button>
+        </div>
+      </div>
+      <div class="timer" id="cd-display" role="timer" aria-live="off">00:00.00</div>
+      <div class="row">
+        <button class="btn primary" id="cd-toggle" aria-pressed="false" data-i18n="start">Iniciar</button>
+        <button class="btn" id="cd-reset" data-i18n="reset">Reiniciar</button>
+      </div>
+      <p class="muted" style="margin-top:8px" data-i18n="bg_precision">Puede perder precisión en segundo plano. Si no escucha el pitido, revise la configuración de sonido/autoplay del navegador.</p>
+    </section>
+
+    <!-- Generador -->
+    <section class="card hidden" id="tab-pwgen" role="tabpanel" aria-labelledby="tabbtn-pwgen" aria-hidden="true">
+      <h2 class="title" data-i18n="pwgen">Generador de contraseñas</h2>
+      <div class="row">
+        <label><span data-i18n="length">Longitud</span> <input type="number" id="pw-len" value="16" min="6" max="64"/></label>
+        <label class="row" style="gap:6px"><input type="checkbox" id="pw-upper" checked/> <span data-i18n="uppercase">Mayúsculas</span></label>
+        <label class="row" style="gap:6px"><input type="checkbox" id="pw-lower" checked/> <span data-i18n="lowercase">Minúsculas</span></label>
+        <label class="row" style="gap:6px"><input type="checkbox" id="pw-num" checked/> <span data-i18n="numbers">Números</span></label>
+        <label class="row" style="gap:6px"><input type="checkbox" id="pw-symbol"/> <span data-i18n="symbols">Símbolos</span></label>
+        <label class="row" style="gap:6px"><input type="checkbox" id="pw-ambig"/> <span data-i18n="no_ambig">Excluir ambiguos</span></label>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <input type="text" id="pw-out" readonly placeholder="Aquí se mostrará el resultado" class="grow" data-i18n-ph="pw_placeholder"/>
+        <button class="btn" id="pw-copy" data-i18n="copy">Copiar</button>
+        <button class="btn primary" id="pw-make" data-i18n="generate">Generar</button>
+      </div>
+      <p class="muted" style="margin-top:8px" data-i18n="crypto_note">Usa RNG criptográfico del navegador.</p>
+    </section>
+
+    <!-- Texto -->
+    <section class="card hidden" id="tab-text" role="tabpanel" aria-labelledby="tabbtn-text" aria-hidden="true">
+      <h2 class="title" data-i18n="text_tools">Contador de caracteres / Conversor</h2>
+      <textarea id="tx-in" placeholder="Escribe aquí" data-i18n-ph="text_ph"></textarea>
+      <div class="row" style="margin-top:6px">
+        <button class="btn" id="tx-upper" data-i18n="upper">MAYÚS</button>
+        <button class="btn" id="tx-lower" data-i18n="lower">minús</button>
+        <button class="btn" id="tx-title" data-i18n="title_case">Título</button>
+        <button class="btn" id="tx-clear" data-i18n="clear">Limpiar</button>
+      </div>
+      <div class="row" style="margin-top:8px"><div class="muted" id="tx-stats">—</div></div>
+    </section>
+
+    <!-- URL -->
+    <section class="card hidden" id="tab-url" role="tabpanel" aria-labelledby="tabbtn-url" aria-hidden="true">
+      <h2 class="title" data-i18n="url_tools">Codificador / Decodificador de URL</h2>
+      <textarea id="url-in" placeholder="Texto o URL" data-i18n-ph="text_or_url"></textarea>
+      <div class="row" style="margin-top:8px">
+        <button class="btn" id="url-encode" data-i18n="encode">encodeURIComponent</button>
+        <button class="btn" id="url-decode" data-i18n="decode">decodeURIComponent</button>
+        <button class="btn" id="url-clear" data-i18n="clear">Limpiar</button>
+      </div>
+      <textarea id="url-out" placeholder="Resultado" style="margin-top:8px" data-i18n-ph="result"></textarea>
+    </section>
+
+    <!-- Bloc de notas -->
+    <section class="card hidden" id="tab-memo" role="tabpanel" aria-labelledby="tabbtn-memo" aria-hidden="true">
+      <h2 class="title" data-i18n="memo">Bloc de notas</h2>
+      <div class="row">
+        <input type="text" id="memo-title" placeholder="Nombre de archivo (opcional) — auto si vacío" class="grow" data-i18n-ph="file_name_optional"/>
+        <input type="file" id="memo-file" accept=".txt" class="file-hidden"/>
+        <button class="btn" id="memo-file-btn" type="button" data-i18n="choose_file">Elegir archivo</button>
+        <span class="muted" id="memo-file-name" aria-live="polite" data-i18n="no_file">Ningún archivo seleccionado</span>
+      </div>
+      <textarea id="memo-area" placeholder="Escribe notas aquí. Guardado automático en LocalStorage." data-i18n-ph="memo_ph"></textarea>
+      <div class="row" style="margin-top:8px">
+        <button class="btn primary" id="memo-save" data-i18n="save_txt">Guardar como .txt</button>
+        <button class="btn" id="memo-clear" data-i18n="clear">Limpiar</button>
+        <span class="muted" id="memo-status" data-i18n="autosaved">Guardado automático</span>
+      </div>
+    </section>
+  </div>
+
+  <div class="ad small" id="ad-bottom"><span class="muted" data-i18n="ad_footer">Espacio publicitario en el pie</span></div>
+
+  <footer>
+    <span>© <span id="year"></span> <span data-i18n="brand">Herramientas Diarias</span></span>
+    <span class="muted"><a href="/es/privacy.html" data-i18n="tab_privacy">Privacidad/Cookies</a></span>
+  </footer>
+</div>
+
+<!-- Lógica común -->
+<script type="module" src="/src/main.js"></script>
+
+<!-- Selector de idioma: redirección por ruta -->
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  (function(){
+    var sel = document.getElementById('langSel');
+    if(!sel) return;
+    var base = location.pathname.replace(/^\/(en|es)(\/|$)/,'/'); // => '/'
+    sel.value = /\/en\//.test(location.pathname) ? 'en' :
+                /\/es\//.test(location.pathname) ? 'es' : 'ko';
+    sel.addEventListener('change', function(){
+      if (sel.value === 'ko') location.href = base;
+      if (sel.value === 'en') location.href = '/en' + base;
+      if (sel.value === 'es') location.href = '/es' + base;
+    });
+  })();
+</script>
+</body>
+</html>

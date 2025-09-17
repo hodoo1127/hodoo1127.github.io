@@ -22,17 +22,55 @@
   <meta property="og:url" content="https://e-tools.kr/">
   <meta property="og:site_name" content="Everyday Tools">
   <meta property="og:locale" content="ko_KR">
-  <meta name="twitter:card" content="summary">
-  <!-- 필요 시 썸네일 이미지 추가 -->
-  <!-- <meta property="og:image" content="https://e-tools.kr/assets/og-image.png"> -->
+  <!-- NEW: 공유 썸네일 이미지 -->
+  <meta property="og:image" content="https://e-tools.kr/assets/og.jpg"> <!-- NEW -->
+  <meta property="og:image:width" content="1200"> <!-- NEW -->
+  <meta property="og:image:height" content="630"> <!-- NEW -->
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image"> <!-- NEW -->
+  <meta name="twitter:title" content="Everyday Tools — e-tools"> <!-- NEW -->
+  <meta name="twitter:description" content="스톱워치, 타이머, 비밀번호 생성 등 간편 도구 모음"> <!-- NEW -->
+  <meta name="twitter:image" content="https://e-tools.kr/assets/og.jpg"> <!-- NEW -->
+
+  <!-- NEW: 파비콘/아이콘 -->
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
   <meta name="theme-color" content="#0b0f14"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
+
+  <!-- NEW: 구조화 데이터(JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"Everyday Tools",
+    "url":"https://e-tools.kr/",
+    "inLanguage":"ko",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://e-tools.kr/?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
 
   <!-- AdSense (승인 후 주석 해제 & 퍼블리셔 ID 교체) -->
   <!--
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
   -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSENQD8K4D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DSENQD8K4D');
+  </script>
+
 </head>
 <body>
 <!-- 루트(ko)에서는 한국어 고정 -->

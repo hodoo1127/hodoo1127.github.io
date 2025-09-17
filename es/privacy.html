@@ -1,86 +1,166 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Privacidad / Cookies — e-tools</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Privacidad / Cookies — e-tools</title>
 
-  <!-- SEO -->
-  <meta name="description" content="Política de privacidad y aviso de cookies: datos que recopilamos, cookies de AdSense y contacto.">
-  <link rel="canonical" href="https://e-tools.kr/es/privacy.html"/>
+<!-- SEO: canonical & hreflang -->
+<link rel="canonical" href="https://e-tools.kr/es/privacy.html"/>
+<link rel="alternate" hreflang="ko" href="https://e-tools.kr/privacy.html">
+<link rel="alternate" hreflang="en" href="https://e-tools.kr/en/privacy.html">
+<link rel="alternate" hreflang="es" href="https://e-tools.kr/es/privacy.html">
+<link rel="alternate" hreflang="x-default" href="https://e-tools.kr/privacy.html">
 
-  <!-- hreflang: páginas equivalentes -->
-  <link rel="alternate" hreflang="ko" href="https://e-tools.kr/privacy.html">
-  <link rel="alternate" hreflang="en" href="https://e-tools.kr/en/privacy.html">
-  <link rel="alternate" hreflang="es" href="https://e-tools.kr/es/privacy.html">
-  <link rel="alternate" hreflang="x-default" href="https://e-tools.kr/privacy.html">
+<!-- Open Graph / Twitter (preview) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Everyday Tools">
+<meta property="og:title" content="Privacidad / Cookies — e-tools">
+<meta property="og:description" content="Política de privacidad y cookies de Everyday Tools.">
+<meta property="og:url" content="https://e-tools.kr/es/privacy.html">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://e-tools.kr/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacidad / Cookies — e-tools">
+<meta name="twitter:description" content="Política de privacidad y cookies de Everyday Tools.">
+<meta name="twitter:image" content="https://e-tools.kr/assets/og.jpg">
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Privacidad / Cookies — e-tools">
-  <meta property="og:description" content="Uso de privacidad y cookies">
-  <meta property="og:url" content="https://e-tools.kr/es/privacy.html">
-  <meta property="og:site_name" content="Everyday Tools">
-  <meta property="og:locale" content="es_ES">
-  <meta name="twitter:card" content="summary">
+<!-- Icons -->
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
-  <meta name="theme-color" content="#0b0f14"/>
-  <link rel="stylesheet" href="/assets/styles.css"/>
+<link rel="stylesheet" href="/assets/styles.css"/>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DSENQD8K4D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DSENQD8K4D');
+</script>
+
+
 </head>
 <body>
 <script>try{localStorage.setItem('langForce','es');}catch(e){}</script>
 
 <div class="wrap">
   <header style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px">
-    <h1>Política de privacidad · Aviso de cookies</h1>
+    <h1 data-i18n="privacy_h1">Política de privacidad · Aviso de cookies</h1>
     <div class="top-controls">
-      <select id="langSel" class="select" aria-label="Language">
+      <select id="lang" class="select" aria-label="Language">
         <option value="ko">한국어</option>
         <option value="en">English</option>
         <option value="es" selected>Español</option>
       </select>
-      <a href="/es/" class="toggle">← Volver</a>
+      <a href="/es/" class="toggle" id="backLink" data-i18n="privacy_back">← Volver</a>
     </div>
   </header>
 
   <section class="card">
-    <h2>Datos que recopilamos</h2>
-    <p>Este sitio no requiere cuenta. Lo que escribe se guarda en el LocalStorage de su navegador.</p>
+    <h2 data-i18n="privacy_collect_title">Datos que recopilamos</h2>
+    <p data-i18n="privacy_collect_body">Este sitio no requiere cuenta. Lo que escribe se guarda en el LocalStorage de su navegador.</p>
 
-    <h2>Publicidad (AdSense)</h2>
+    <h2 data-i18n="privacy_ads_title">Publicidad (AdSense)</h2>
     <p>
-      Google AdSense puede usar cookies e identificadores publicitarios para mostrar anuncios personalizados.
-      Consulte: <a href="https://policies.google.com/technologies/ads?hl=es" target="_blank" rel="noopener noreferrer">Política de anuncios y cookies de Google</a>
+      <span data-i18n="privacy_ads_body">Google AdSense puede usar cookies e identificadores publicitarios para mostrar anuncios personalizados. Consulte:</span>
+      <a id="adslink" target="_blank" rel="noopener" data-i18n="privacy_ads_link_text">Política de anuncios y cookies de Google</a>
     </p>
 
-    <h2>Contacto</h2>
-    <p>Correo del responsable: <a href="mailto:admin@e-tools.kr">admin@e-tools.kr</a></p>
+    <h2 data-i18n="privacy_contact_title">Contacto</h2>
+    <p><span data-i18n="privacy_contact_prefix">Correo del responsable:</span> <a href="mailto:admin@e-tools.kr">admin@e-tools.kr</a></p>
   </section>
 
   <footer style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px">
-    <span>© <span id="year"></span> <span>Everyday Tools</span></span>
-    <span class="muted"><a href="/es/">← Volver</a></span>
+    <span>© <span id="year"></span> <span data-i18n="brand">Herramientas Diarias</span></span>
+    <span class="muted"><a id="backLink2" href="/es/" data-i18n="privacy_back">← Volver</a></span>
   </footer>
 </div>
 
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+/* ===== i18n dictionary (KO/EN/ES) ===== */
+const I18N = {
+  ko:{privacy_h1:"개인정보 처리방침 · 쿠키 고지", privacy_back:"← 돌아가기",
+      privacy_collect_title:"수집 항목",
+      privacy_collect_body:"본 사이트는 계정을 요구하지 않으며, 사용자 입력은 브라우저 로컬 저장소(LocalStorage)에 저장됩니다.",
+      privacy_ads_title:"광고(AdSense)",
+      privacy_ads_body:"Google AdSense는 쿠키 및 광고 ID를 활용하여 개인 맞춤 광고를 제공할 수 있습니다. 자세한 내용은 다음 문서를 참조하십시오:",
+      privacy_ads_link_text:"Google 광고 기술 정책",
+      privacy_contact_title:"문의", privacy_contact_prefix:"운영자 이메일:",
+      brand:"Everyday Tools"},
+  en:{privacy_h1:"Privacy Policy · Cookies Notice", privacy_back:"← Back",
+      privacy_collect_title:"Data We Collect",
+      privacy_collect_body:"This site requires no account. What you type stays in your browser’s LocalStorage.",
+      privacy_ads_title:"Advertising (AdSense)",
+      privacy_ads_body:"Google AdSense may use cookies and advertising IDs to serve personalized ads. See:",
+      privacy_ads_link_text:"Google Ads & cookies policy",
+      privacy_contact_title:"Contact", privacy_contact_prefix:"Operator email:",
+      brand:"Everyday Tools"},
+  es:{privacy_h1:"Política de privacidad · Aviso de cookies", privacy_back:"← Volver",
+      privacy_collect_title:"Datos que recopilamos",
+      privacy_collect_body:"Este sitio no requiere cuenta. Lo que escribe se guarda en el LocalStorage de su navegador.",
+      privacy_ads_title:"Publicidad (AdSense)",
+      privacy_ads_body:"Google AdSense puede usar cookies e identificadores publicitarios para mostrar anuncios personalizados. Consulte:",
+      privacy_ads_link_text:"Política de anuncios y cookies de Google",
+      privacy_contact_title:"Contacto", privacy_contact_prefix:"Correo del responsable:",
+      brand:"Herramientas Diarias"}
+};
 
-  (function(){
-    var sel = document.getElementById('langSel');
-    if(!sel) return;
-    // /en/privacy.html, /es/privacy.html → /privacy.html 로 매핑
-    var base = location.pathname.replace(/^\/(en|es)(\/|$)/,'/'); // 결과: /privacy.html
+const SUPPORTED = ["ko","en","es"];
+const pickLang = x => SUPPORTED.includes(x) ? x : "en";
 
-    sel.value = /\/en\//.test(location.pathname) ? 'en' :
-                /\/es\//.test(location.pathname) ? 'es' : 'ko';
+/* ===== path-based lang & links ===== */
+function currentLangFromPath(){
+  if(/^\/en(\/|$)/.test(location.pathname)) return "en";
+  if(/^\/es(\/|$)/.test(location.pathname)) return "es";
+  return "ko";
+}
 
-    sel.addEventListener('change', function(){
-      if (sel.value === 'ko') location.href = base;          // /privacy.html
-      if (sel.value === 'en') location.href = '/en' + base;  // /en/privacy.html
-      if (sel.value === 'es') location.href = '/es' + base;  // /es/privacy.html
-    });
-  })();
+function applyI18n(lang){
+  const d = I18N[lang] || I18N.en;
+  document.documentElement.setAttribute("lang", lang);
+  document.querySelectorAll("[data-i18n]").forEach(n=>{
+    const k = n.getAttribute("data-i18n");
+    if(d[k]) n.textContent = d[k];
+  });
+}
+
+function syncLinks(lang){
+  const back1 = document.getElementById("backLink");
+  const back2 = document.getElementById("backLink2");
+  const homeHref = lang==="en" ? "/en/" : lang==="es" ? "/es/" : "/";
+  if(back1) back1.href = homeHref;
+  if(back2) back2.href = homeHref;
+
+  const ads = document.getElementById("adslink");
+  const map = { ko:"ko", en:"en", es:"es" };
+  if(ads) ads.href = "https://policies.google.com/technologies/ads?hl=" + (map[lang] || "en");
+}
+
+function setLang(lang){
+  const v = pickLang(String(lang||"").toLowerCase());
+  try{ localStorage.setItem("langForce", v); }catch(e){}
+  if(v==="ko") location.href = "/privacy.html";
+  if(v==="en") location.href = "/en/privacy.html";
+  if(v==="es") location.href = "/es/privacy.html";
+}
+
+/* ===== bootstrap ===== */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const sel = document.getElementById("lang");
+const cur = currentLangFromPath(); // "es" here
+sel.value = cur;
+
+applyI18n("es");
+syncLinks("es");
+
+sel.addEventListener("change", ()=> setLang(sel.value));
 </script>
 </body>
 </html>

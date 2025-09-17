@@ -22,16 +22,52 @@
   <meta property="og:url" content="https://e-tools.kr/en/">
   <meta property="og:site_name" content="Everyday Tools">
   <meta property="og:locale" content="en_US">
-  <!-- Optional preview image -->
-  <meta property="og:image" content="https://e-tools.kr/assets/og.png">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://e-tools.kr/assets/og.jpg"> <!-- NEW -->
+  <meta property="og:image:width" content="1200"> <!-- NEW -->
+  <meta property="og:image:height" content="630"> <!-- NEW -->
+
+  <meta name="twitter:card" content="summary_large_image"> <!-- NEW -->
+  <meta name="twitter:title" content="Everyday Tools — e-tools"> <!-- NEW -->
+  <meta name="twitter:description" content="Stopwatch, timer, and handy text tools"> <!-- NEW -->
+  <meta name="twitter:image" content="https://e-tools.kr/assets/og.jpg"> <!-- NEW -->
+
+  <!-- Icons -->
+  <link rel="icon" href="/assets/favicon.ico"> <!-- NEW -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png"> <!-- NEW -->
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"> <!-- NEW -->
 
   <meta name="theme-color" content="#0b0f14"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
 
+  <!-- JSON-LD (WebSite) -->
+  <script type="application/ld+json"> <!-- NEW -->
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"Everyday Tools",
+    "url":"https://e-tools.kr/en/",
+    "inLanguage":"en",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://e-tools.kr/en/?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+
   <!-- AdSense (enable after approval)
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
   -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DSENQD8K4D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DSENQD8K4D');
+</script>
+
 </head>
 <body>
 <script>try{localStorage.setItem('langForce','en');}catch(e){}</script>
